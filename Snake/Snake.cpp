@@ -81,7 +81,7 @@ public:
     void update() {
         const Coords old_pos = snake_pos;
 
-        // Move head
+        // Передвижение
         switch (direction) {
             case 0: snake_pos.x--; break;
             case 1: snake_pos.y++; break;
@@ -89,13 +89,12 @@ public:
             case 3: snake_pos.y--; break;
         }
 
-        // Check collisions
+        // Проверка касаний стены
         if (snake_pos.x < 0 || snake_pos.y < 0 || snake_pos.x >= BOARD_SIZE || snake_pos.y >= BOARD_SIZE) {
             cout << "Game over";
             exit(0);
         }
 
-        // Check if apple was eaten
         if (snake_pos == apple_pos) {
             score++;
             update_apple();
@@ -106,7 +105,7 @@ public:
             tail.push_back(old_pos);
         }
 
-        // Check self-collision
+        // Проверка касания самого себя
         for (const auto& segment : tail) {
             if (snake_pos == segment) {
                 cout << "Game over";
